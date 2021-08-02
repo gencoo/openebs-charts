@@ -108,7 +108,7 @@ localprovisioner:
     #   memory: 1Gi
 
 snapshotOperator:
-  enabled: true
+  enabled: false
   controller:
     image: "openebs/snapshot-controller"
     imageTag: "2.11.0"
