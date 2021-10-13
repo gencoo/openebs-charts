@@ -1,4 +1,4 @@
-{{- if .Values.provisioner.enabled }}
+{{- if and (.Values.provisioner.enabled) (.Values.legacy.enabled) }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -97,7 +97,7 @@ spec:
             command:
             - sh
             - -c
-            - test `pgrep -c "^openebs-provisi.*"` = 1
+            - test `pgrep  "^openebs-provisi.*"` = 1
           initialDelaySeconds: {{ .Values.provisioner.healthCheck.initialDelaySeconds }}
           periodSeconds: {{ .Values.provisioner.healthCheck.periodSeconds }}
 {{- if .Values.provisioner.nodeSelector }}

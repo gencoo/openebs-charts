@@ -1,4 +1,6 @@
 {{- if .Values.ndm.enabled }}
+{{- $ndmValues := index .Values "openebs-ndm" }}
+{{- if not $ndmValues.enabled }}
 apiVersion: apps/v1
 kind: DaemonSet
 metadata:
@@ -58,8 +60,8 @@ spec:
 {{- if .Values.featureGates.UseOSDisk.enabled }}
           - --feature-gates={{ .Values.featureGates.UseOSDisk.featureGateFlag }}
 {{- end}}
-{{- if .Values.featureGates.MountChangeDetection.enabled }}
-          - --feature-gates={{ .Values.featureGates.MountChangeDetection.featureGateFlag }}
+{{- if .Values.featureGates.ChangeDetection.enabled }}
+          - --feature-gates={{ .Values.featureGates.ChangeDetection.featureGateFlag }}
 {{- end}}
 {{- end}}
         imagePullPolicy: {{ .Values.image.pullPolicy }}
@@ -176,5 +178,6 @@ spec:
 {{- if .Values.ndm.tolerations }}
       tolerations:
 {{ toYaml .Values.ndm.tolerations | indent 8 }}
+{{- end }}
 {{- end }}
 {{- end }}
